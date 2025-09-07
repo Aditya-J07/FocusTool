@@ -1,0 +1,52 @@
+Create a Next.js app (React + Tailwind CSS) for my personal productivity dashboard. 
+It should be simple, focus-oriented, and motivational. 
+The features I need:
+
+1. Notification Bar
+   - Green if all tasks for today are completed.
+   - Red if any task is pending.
+
+2. LeetCode Auto-Tracker
+   - Use my username: "Aditya_J07".
+   - Add a Next.js API route (/api/leetcode) that fetches my stats from https://leetcode.com/graphql.
+   - Show how many problems I solved today.
+   - Show my current daily streak.
+   - Mark daily target as "2 problems by default".
+
+3. YouTube Playlist Tracker
+   - Default playlist: https://www.youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz
+   - Embed this playlist in the site.
+   - Also create a checklist of videos (based on video titles if possible, else manual).
+   - Save my progress in localStorage.
+
+4. Pomodoro Timer
+   - 25 min focus / 5 min break cycle by default, adjustable.
+   - Start/Stop/Reset buttons.
+   - Fullscreen "focus mode" that hides all other UI when running.
+   - Play a soft alert sound when the timer finishes.
+
+5. Music Player
+   - Preload a few focus tracks (like lo-fi, piano, coding music).
+   - Add "Play Random" button to play a random track.
+   - Place player at bottom of the site, always visible.
+
+6. Gamification
+   - Earn XP for tasks (1 XP per LeetCode Q, 2 XP per video watched, 5 XP for completing all daily tasks).
+   - Level up system with titles (e.g., "Level 3 – Consistency Ninja").
+   - Show streak flames 🔥 for consecutive daily completions.
+   - Unlock new random songs when I hit milestones.
+
+7. Dashboard
+   - Show daily summary: problems solved, videos watched, pomodoro sessions completed.
+   - Weekly streak chart (like GitHub contribution graph).
+   - Current XP and Level.
+
+8. Motivation
+   - Show a random motivational quote at the top of dashboard.
+   - Rotate from a small hardcoded list.
+
+Requirements:
+- Use Next.js (so I can deploy directly on Vercel).
+- Save user progress in localStorage so it persists after refresh.
+- Keep code modular: components for Timer, PlaylistTracker, LeetCodeTracker, MusicPlayer, Dashboard.
+- Style with Tailwind CSS (minimal, clean, focus-oriented).
