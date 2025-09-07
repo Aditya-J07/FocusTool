@@ -118,6 +118,128 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Last.fm API routes
+  app.get("/api/lastfm/user/:username", async (req, res) => {
+    try {
+      const { username } = req.params;
+      const apiKey = "e49833a1003c14b3b187fa087ef0ed2c";
+      
+      const response = await fetch(
+        `https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=${username}&api_key=${apiKey}&format=json`
+      );
+
+      if (!response.ok) {
+        throw new Error(`Last.fm API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      if (data.error) {
+        return res.status(404).json({ error: data.message || 'User not found' });
+      }
+
+      res.json({
+        username: data.user.name,
+        realname: data.user.realname || '',
+        playcount: parseInt(data.user.playcount || '0'),
+        registered: data.user.registered?.unixtime ? new Date(parseInt(data.user.registered.unixtime) * 1000).toISOString() : null
+      });
+
+    } catch (error) {
+      console.error('Last.fm API error:', error);
+      res.status(500).json({ error: 'Failed to fetch Last.fm user info' });
+    }
+  });
+
+  app.get("/api/lastfm/user/:username/recent", async (req, res) => {
+    try {
+      const { username } = req.params;
+      const apiKey = "e49833a1003c14b3b187fa087ef0ed2c";
+      const limit = req.query.limit || '10';
+      
+      const response = await fetch(
+        `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json&limit=${limit}`
+      );
+
+      if (!response.ok) {
+        throw new Error(`Last.fm API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      if (data.error) {
+        return res.status(404).json({ error: data.message || 'User not found' });
+      }
+
+      const tracks = data.recenttracks?.track || [];
+      const formattedTracks = Array.isArray(tracks) ? tracks : [tracks];
+
+      const processedTracks = formattedTracks.map((track: any, index: number) => ({
+        id: `${track.artist?.['#text'] || 'Unknown'}-${track.name || 'Unknown'}-${index}`,
+        title: track.name || 'Unknown Track',
+        artist: track.artist?.['#text'] || 'Unknown Artist',
+        album: track.album?.['#text'] || '',
+        image: track.image?.find((img: any) => img.size === 'medium')?.['#text'] || '',
+        nowPlaying: track['@attr']?.nowplaying === 'true',
+        playedAt: track.date ? new Date(parseInt(track.date.uts) * 1000).toISOString() : null
+      }));
+
+      res.json({
+        tracks: processedTracks,
+        total: processedTracks.length
+      });
+
+    } catch (error) {
+      console.error('Last.fm recent tracks API error:', error);
+      res.status(500).json({ error: 'Failed to fetch recent tracks' });
+    }
+  });
+
+  app.get("/api/lastfm/user/:username/toptracks", async (req, res) => {
+    try {
+      const { username } = req.params;
+      const apiKey = "e49833a1003c14b3b187fa087ef0ed2c";
+      const limit = req.query.limit || '10';
+      const period = req.query.period || '7day'; // overall, 7day, 1month, 3month, 6month, 12month
+      
+      const response = await fetch(
+        `https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=${username}&api_key=${apiKey}&format=json&limit=${limit}&period=${period}`
+      );
+
+      if (!response.ok) {
+        throw new Error(`Last.fm API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      if (data.error) {
+        return res.status(404).json({ error: data.message || 'User not found' });
+      }
+
+      const tracks = data.toptracks?.track || [];
+      const formattedTracks = Array.isArray(tracks) ? tracks : [tracks];
+
+      const processedTracks = formattedTracks.map((track: any, index: number) => ({
+        id: `${track.artist?.name || 'Unknown'}-${track.name || 'Unknown'}-${index}`,
+        title: track.name || 'Unknown Track',
+        artist: track.artist?.name || 'Unknown Artist',
+        playcount: parseInt(track.playcount || '0'),
+        rank: parseInt(track['@attr']?.rank || index + 1),
+        image: track.image?.find((img: any) => img.size === 'medium')?.['#text'] || ''
+      }));
+
+      res.json({
+        tracks: processedTracks,
+        period: period,
+        total: processedTracks.length
+      });
+
+    } catch (error) {
+      console.error('Last.fm top tracks API error:', error);
+      res.status(500).json({ error: 'Failed to fetch top tracks' });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

@@ -1,0 +1,84 @@
+import { useState, useEffect } from 'react';
+import PomodoroTimer from '@/components/PomodoroTimer';
+import MusicPlayer from '@/components/MusicPlayer';
+import LeetCodeTracker from '@/components/LeetCodeTracker';
+import YouTubeStudySection from '@/components/YouTubeStudySection';
+import XPSystem from '@/components/XPSystem';
+import MotivationalQuotes from '@/components/MotivationalQuotes';
+import NotificationBar from '@/components/NotificationBar';
+
+const Index = () => {
+  const [user, setUser] = useState(() => {
+    const saved = localStorage.getItem('focusToolUser');
+    return saved ? JSON.parse(saved) : {
+      level: 1,
+      xp: 0,
+      totalXp: 0,
+      streak: 0,
+      lastCompletedDate: null
+    };
+  });
+
+  useEffect(() => {
+    localStorage.setItem('focusToolUser', JSON.stringify(user));
+  }, [user]);
+
+  const addXP = (amount: number, source: string) => {
+    setUser(prev => {
+      const newXp = prev.xp + amount;
+      const newTotalXp = prev.totalXp + amount;
+      const level = Math.floor(newTotalXp / 100) + 1;
+      
+      return {
+        ...prev,
+        xp: newXp >= 100 ? newXp - 100 : newXp,
+        totalXp: newTotalXp,
+        level: level
+      };
+    });
+  };
+
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      {/* Header with XP System */}
+      <div className="border-b border-border">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between mb-4">
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              FocusTool
+            </h1>
+            <XPSystem user={user} />
+          </div>
+          <MotivationalQuotes />
+          <NotificationBar user={user} />
+        </div>
+      </div>
+
+      {/* Main Content Grid */}
+      <div className="container mx-auto px-4 py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Left Column */}
+          <div className="space-y-6">
+            <PomodoroTimer onComplete={() => addXP(25, 'pomodoro')} />
+            <MusicPlayer />
+          </div>
+
+          {/* Right Column */}
+          <div className="space-y-6">
+            <LeetCodeTracker 
+              username="Aditya_J07" 
+              onStreakUpdate={(streak) => setUser(prev => ({ ...prev, streak }))}
+              onDayComplete={() => addXP(30, 'leetcode')}
+            />
+            <YouTubeStudySection 
+              playlistUrl="https://www.youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz"
+              onVideoComplete={() => addXP(15, 'study')}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Index;

@@ -55,38 +55,38 @@
 }
 
 .dark {
-  --background: hsl(28, 35%, 22%); /* Darker 7F5539 */
-  --foreground: hsl(36, 33%, 90%); /* EDE0D4 */
-  --card: hsl(28, 35%, 28%); /* Darker variation */
-  --card-foreground: hsl(36, 33%, 90%); /* EDE0D4 */
-  --popover: hsl(28, 35%, 22%);
-  --popover-foreground: hsl(36, 33%, 90%); /* EDE0D4 */
-  --primary: hsl(25, 25%, 56%); /* B08968 */
-  --primary-foreground: hsl(36, 33%, 90%); /* EDE0D4 */
-  --secondary: hsl(22, 22%, 40%); /* Darker 9C6644 */
-  --secondary-foreground: hsl(36, 33%, 90%); /* EDE0D4 */
-  --muted: hsl(28, 35%, 25%);
-  --muted-foreground: hsl(33, 29%, 65%);
-  --accent: hsl(22, 22%, 51%); /* 9C6644 */
-  --accent-foreground: hsl(36, 33%, 90%); /* EDE0D4 */
-  --destructive: hsl(0, 84.2%, 60.2%);
-  --destructive-foreground: hsl(36, 33%, 90%); /* EDE0D4 */
-  --border: hsl(28, 35%, 35%);
-  --input: hsl(28, 35%, 35%);
-  --ring: hsl(25, 25%, 56%); /* B08968 */
-  --chart-1: hsl(25, 25%, 56%); /* B08968 */
-  --chart-2: hsl(22, 22%, 51%); /* 9C6644 */
-  --chart-3: hsl(28, 35%, 32%); /* 7F5539 */
-  --chart-4: hsl(33, 29%, 73%); /* DDB892 */
-  --chart-5: hsl(31, 31%, 80%); /* E6CCB2 */
-  --sidebar: hsl(28, 35%, 28%);
-  --sidebar-foreground: hsl(36, 33%, 90%); /* EDE0D4 */
-  --sidebar-primary: hsl(25, 25%, 56%); /* B08968 */
-  --sidebar-primary-foreground: hsl(36, 33%, 90%); /* EDE0D4 */
-  --sidebar-accent: hsl(22, 22%, 51%); /* 9C6644 */
-  --sidebar-accent-foreground: hsl(36, 33%, 90%); /* EDE0D4 */
-  --sidebar-border: hsl(28, 35%, 35%);
-  --sidebar-ring: hsl(25, 25%, 56%); /* B08968 */
+  --background: hsl(240, 10%, 6%); /* Rich dark background */
+  --foreground: hsl(0, 0%, 95%); /* Pure white text */
+  --card: hsl(240, 10%, 10%); /* Dark card background */
+  --card-foreground: hsl(0, 0%, 95%); /* White text on cards */
+  --popover: hsl(240, 10%, 8%);
+  --popover-foreground: hsl(0, 0%, 95%);
+  --primary: hsl(263, 85%, 70%); /* Vibrant purple */
+  --primary-foreground: hsl(0, 0%, 95%);
+  --secondary: hsl(240, 10%, 15%); /* Darker secondary */
+  --secondary-foreground: hsl(0, 0%, 90%);
+  --muted: hsl(240, 10%, 12%);
+  --muted-foreground: hsl(0, 0%, 65%);
+  --accent: hsl(193, 100%, 60%); /* Bright cyan accent */
+  --accent-foreground: hsl(240, 10%, 6%);
+  --destructive: hsl(0, 85%, 60%);
+  --destructive-foreground: hsl(0, 0%, 95%);
+  --border: hsl(240, 10%, 18%);
+  --input: hsl(240, 10%, 15%);
+  --ring: hsl(263, 85%, 70%);
+  --chart-1: hsl(263, 85%, 70%); /* Purple */
+  --chart-2: hsl(193, 100%, 60%); /* Cyan */
+  --chart-3: hsl(280, 100%, 70%); /* Magenta */
+  --chart-4: hsl(46, 100%, 60%); /* Gold */
+  --chart-5: hsl(150, 100%, 60%); /* Green */
+  --sidebar: hsl(240, 10%, 10%);
+  --sidebar-foreground: hsl(0, 0%, 95%);
+  --sidebar-primary: hsl(263, 85%, 70%);
+  --sidebar-primary-foreground: hsl(0, 0%, 95%);
+  --sidebar-accent: hsl(193, 100%, 60%);
+  --sidebar-accent-foreground: hsl(240, 10%, 6%);
+  --sidebar-border: hsl(240, 10%, 18%);
+  --sidebar-ring: hsl(263, 85%, 70%);
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-serif: Georgia, serif;
   --font-mono: Menlo, monospace;
@@ -168,16 +168,21 @@
   box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
 }
 
-/* React Hub Liquid Ether Background */
+/* React Hub Liquid Ether Background - Enhanced Dark Theme */
 .liquid-ether-container {
   position: relative;
   overflow: hidden;
   width: 100%;
   height: 100%;
   touch-action: none;
-  background: linear-gradient(135deg, #EDE0D4 0%, #E6CCB2 25%, #DDB892 50%, #B08968 75%, #7F5539 100%);
+  background: linear-gradient(135deg, 
+    hsl(240, 10%, 6%) 0%, 
+    hsl(260, 30%, 8%) 25%, 
+    hsl(280, 20%, 10%) 50%, 
+    hsl(250, 25%, 12%) 75%, 
+    hsl(240, 10%, 6%) 100%);
   background-size: 400% 400%;
-  animation: gradient-flow 8s ease infinite;
+  animation: gradient-flow 12s ease infinite;
 }
 
 .liquid-ether-container::before {
@@ -266,26 +271,86 @@
   }
 }
 
-/* Glass morphism effect */
+/* Glass morphism effect - Enhanced for dark theme */
 .glass-morphism {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
 }
 
-/* Neon glow effects */
-.neon-glow-blue {
-  box-shadow: 0 0 5px #00d4ff, 0 0 10px #00d4ff, 0 0 20px #00d4ff;
+.glass-morphism:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 12px 40px 0 rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
-.neon-glow-purple {
-  box-shadow: 0 0 5px #bf00ff, 0 0 10px #bf00ff, 0 0 20px #bf00ff;
+/* Enhanced shadow and glow system */
+.shadow-3xl {
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
-.neon-glow-green {
-  box-shadow: 0 0 5px #00ff88, 0 0 10px #00ff88, 0 0 20px #00ff88;
+.modern-card {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modern-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    0 20px 60px 0 rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateY(-4px);
+}
+
+/* Subtle animations */
+@keyframes gentle-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes gentle-glow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.8; }
+}
+
+.animate-float {
+  animation: gentle-float 6s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: gentle-glow 4s ease-in-out infinite;
+}
+
+/* Improved gradients */
+.gradient-primary {
+  background: linear-gradient(135deg, hsl(263, 85%, 70%) 0%, hsl(280, 100%, 70%) 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, hsl(193, 100%, 60%) 0%, hsl(150, 100%, 60%) 100%);
+}
+
+.gradient-surface {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.03) 0%, 
+    rgba(255, 255, 255, 0.01) 50%, 
+    rgba(255, 255, 255, 0.03) 100%);
 }
 
 /* React Hub Cyberpunk Elements */
